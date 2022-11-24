@@ -1,0 +1,321 @@
+//== Colors
+$main-bg-color: #FEBC2E;
+$main-text-color: #061D35;
+$gray: #EBEBEB;
+$white: #ffffff;
+$dark-main: #373F41;
+$light-blue: #1FA2FF;
+$blur-blue: #00549A;
+$gray-blue: #DBEAF5;
+$main-blue: #E9F6FF;
+$medium-gray: #737B7D;
+$dark-blue: #14375F; // Title; H1; H2 ; H3 ; Round Button
+$burgundy-red: #75010A; // Subtitle; Primary Button
+$cream-1: #FAF7F1; // Global Background
+$cream-2: #EFEBE6; // Secondary Background
+$cream-3: #E0D8CD; // Popup background
+$cream-light: #ECEBEB; // Frame Background
+$dark-gray: #373F41;
+$light-gray: #73797A;
+
+// === layout ==========
+$container-width: 1200px;
+
+// ===Font ======================
+$content-font: 'Bebas', Helvetica, Arial, sans-serif;
+$headline-font: 'Bebas Neue', Helvetica, Arial, sans-serif;
+$head-content-font: 'Bebas Neue', Helvetica, Arial, sans-serif;
+$normal-font: 'Noto Sans', Helvetica, Arial, sans-serif;
+$article-font: 'Noto Sans', Helvetica, Arial, sans-serif;
+$form-font: 'Noto Sans', Helvetica, Arial, sans-serif;
+$special-font: 'Roboto', Helvetica, Arial, sans-serif;
+$letter-spacing: 0.3px;
+
+//===Font Weight======================
+$font-weight-light: 500;
+$font-weight-bold: bold;
+
+// ===Button ======================
+@mixin basic-button($bg, $text) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    background-color: $bg;
+    color: $text;
+    border-radius: 4px;
+}
+@mixin primary-button($bg, $text) {
+    @include basic-button($bg, $text);
+    box-shadow: 1px 1px 32px rgba(255, 255, 255, 0.46);
+}
+@mixin action-button($bg, $text) {
+    @include basic-button($bg, $text);
+    box-shadow: 1px 1px 32px rgba(255, 255, 255, 0.05);
+}
+
+// === Spacing ======================
+@mixin padding ($padding...) {
+    padding: $padding;
+}
+//Margin mixin
+@mixin margin ($margin...) {
+    margin: $margin;
+}
+%link-icons {
+    width: 81px;
+    height: 81px;
+    left: 205px;
+    top: 0;
+    color: $white;
+    background-color: $light-blue;
+}
+
+// ===Background Color ======================
+@mixin adi-background () {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 0;
+}
+// ===Headline and Font extending ======================
+// Use example: @include font-style(../...)
+@mixin font-style ($font-family, $font-size, $line-height, $font-weight: $font-weight-light, $letter-spacing: $letter-spacing) {
+    font-family: $font-family;
+    font-size: $font-size !important;
+    line-height: $line-height !important;
+    letter-spacing: $letter-spacing;
+    font-weight: $font-weight;
+}
+// A map of breakpoints.
+$breakpoints: (
+    "smallest_devices": 370px,
+    "phone": 400px,
+    "phone-wide": 480px,
+    "phablet": 560px,
+    "tablet-small": 640px,
+    "tablet": 768px,
+    "small_devices": 768px,
+    "laptop": 992px,
+    "tablet-wide": 1024px,
+    "middle_devices_min": 1009px,
+    "middle_devices_max": 1201px,
+    "blog_page_min": 1009px,
+    "blog_page_max": 1631px,
+    "desktop": 1300px,
+    "desktop-wide": 1440px,
+    "ultra-wide": 1824px,
+);
+
+@mixin border-radius($radius) {
+	border-radius: $radius;
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+}
+@mixin border-radii($topleft, $topright, $bottomright, $bottomleft) {
+	border-top-left-radius: $topleft;
+	border-top-right-radius: $topright;
+	border-bottom-right-radius: $bottomright;
+	border-bottom-left-radius: $bottomleft;
+	-webkit-border-top-left-radius: $topleft;
+	-webkit-border-top-right-radius: $topright;
+	-webkit-border-bottom-right-radius: $bottomright;
+	-webkit-border-bottom-left-radius: $bottomleft;
+	-moz-border-radius-topleft: $topleft;
+	-moz-border-radius-topright: $topright;
+	-moz-border-radius-bottomright: $bottomright;
+	-moz-border-radius-bottomleft: $bottomleft;
+}
+@mixin background-size($background-size) {
+    -webkit-background-size: $background-size;
+       -moz-background-size: $background-size;
+         -o-background-size: $background-size;
+            background-size: $background-size;
+}
+@mixin opacity($value){
+    $IEValue: $value*100;
+    opacity: $value;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
+    filter: alpha(opacity=$IEValue);
+}
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+    @if $inset {
+      -webkit-box-shadow:inset $top $left $blur $color;
+      -moz-box-shadow:inset $top $left $blur $color;
+      box-shadow:inset $top $left $blur $color;
+    } @else {
+        -webkit-box-shadow: $top $left $blur $color;
+        -moz-box-shadow: $top $left $blur $color;
+        box-shadow: $top $left $blur $color;
+    }
+}
+// media query mixins
+// parameters $type and $range optional
+// usage examples for @media only screen and (min-width): @include mq(desktop){...}
+// if you like to specify that this breakpoint should be max-width: @include mq(desktop, max){...}
+// if you like to have a range min-width and max-width: @include mq(phone, range, tablet){...}
+
+@mixin mq($width, $type: min, $range: null) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+        @if $type == max {
+            $width: $width - 1px;
+        }
+        @if $type == range {
+            $range: map_get($breakpoints, $range);
+            $range: $range - 1px;
+
+            @media only screen and (min-width: $width) and (max-width: $range) {
+                @content;
+            }
+        } @else {
+            @media only screen and (#{$type}-width: $width) {
+                @content;
+            }
+        }
+    } @else {
+        @error 'There is no width called "#{$width}". Typo?';
+    }
+}
+
+
+// Use example: @extend %headline
+%headline {
+    @include font-style($headline-font, 21px, 26px, 600);
+    font-style: normal;
+    color: $dark-main;
+    @include mq(laptop) {
+        @include font-style($headline-font, 43px, 52px, 600);
+    }
+}
+%sub-headline {
+    @include font-style($headline-font, 14px, 16px, bold);
+    font-style: normal;
+    color: $light-blue;
+    @include mq(laptop) {
+        @include font-style($headline-font, 24px, 29px, bold);
+    }
+}
+%sub-headline-small {
+    @include font-style($headline-font, 14px, 22px, bold);
+    font-style: normal;
+    color: $burgundy-red;
+    text-transform: uppercase;
+}
+%menu-light {
+    @include font-style($headline-font, 14px, 22px, $font-weight-light);
+    font-style: normal;
+    color: $dark-main;
+}
+%menu-bold {
+    @include font-style($headline-font, 14px, 22px, $font-weight-bold);
+    font-style: normal;
+    color: $dark-main;
+}
+%info-text {
+    @include font-style($content-font, 14px, 18px, normal);
+    color: $blur-blue;
+    @include mq(laptop) {
+        @include font-style($content-font, 17px, 26px, normal);
+    }
+}
+%content-text {
+    @include font-style($content-font, 14px, 18px);
+    color: $dark-main;
+    @include mq(laptop) {
+        @include font-style($content-font, 17px, 26px);
+    }
+}
+%content-sub-text {
+    @include font-style($headline-font, 13px, 22px, $font-weight-bold);
+    color: $burgundy-red;
+    font-style: normal;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+%global-heading-text {
+    @include font-style($headline-font, 35px, 45px, 400);
+    @include mq(laptop){
+        @include font-style($headline-font, 70px, 74px, 400);
+    }
+}
+%global-content-text {
+    @include font-style($normal-font, 14px, 25px, 400);
+    @include mq(laptop){
+        @include font-style($normal-font, 18px, 24px, 400);
+    }
+}
+%global-heading-title {
+    @include font-style($headline-font, 35px, 45px, 400);
+    @include mq(laptop){
+        @include font-style($headline-font, 70px, 74px, 400);
+    }
+}
+%global-heading-small-title {
+    @include font-style($headline-font, 30px, 35px, 400);
+    @include mq(laptop){
+        @include font-style($headline-font, 40px, 45px, 400);
+    }
+}
+%global-large-heading {
+    @include font-style($normal-font, 16px, 20px, 500);
+    @include mq(laptop){
+        @include font-style($normal-font, 24px, 28px, 500);
+    }
+}
+%global-small-heading {
+    @include font-style($normal-font, 14px, 25px, 500);
+    @include mq(laptop){
+        @include font-style($normal-font, 18px, 24px, 500);
+    }
+}
+%global-small-text {
+    @include font-style($special-font, 12px, 16px, 300);
+    @include mq(laptop){
+        @include font-style($special-font, 14px, 24px, 300);
+    }
+}
+%global-link-text {
+    @include font-style($normal-font, 12px, 16px, 500);
+    @include mq(laptop){
+        @include font-style($normal-font, 14px, 18px, 500);
+    }
+}
+%layout-absolute-item {
+    background: rgba(6, 29, 53, 0.95);
+    position: absolute;
+    left: 0;
+    bottom: 15px;
+    min-height: 37px;
+    padding: 5px 0;
+    width: 100%;
+    color: #FEBC2E;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    @extend %global-link-text;
+    text-transform: uppercase;
+}
+%button-style {
+    cursor: pointer;
+    max-width: 240px;
+    border: 1px solid #061D35;
+    text-transform:none!important;
+    @include font-style($normal-font, 13px, 14px, 600);
+    @include border-radius(48px!important);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25)!important;
+    margin-top: 20px;
+    @include mq(laptop) {
+        margin-top: 30px;
+        @include font-style($normal-font, 16px, 20px, 600);
+    }
+    @include primary-button(transparent, $main-text-color);
+    background: transparent!important;
+}
